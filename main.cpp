@@ -26,11 +26,12 @@ void insert(int new_data) {
 }
 void adder(int num){
     FILE *fptr;
-    char changenum[10];
+    char changenum[3];
     snprintf(changenum, sizeof(changenum), "%d\n", num);
-    fptr = fopen("swort.txt", "a+");
+    fptr = fopen("highscore.txt", "w");
     fprintf(fptr,changenum);
     fclose(fptr);
+    
 }
 void display(int line) {
    int swort[line];
@@ -42,27 +43,20 @@ void display(int line) {
       
       int temp = ptr->data;
       swort[counter] = temp;
-       counter++;
+       
+       
 
       ptr = ptr->next;
-      
+      counter++;
    }
-   for(i=0;i<line;i++)
-	{		
-		for(j=i+1;j<line;j++)
-		{
-			if(swort[i]>swort[j])
-			{
-				int temp = swort[i];
-				swort[i]=swort[j];
-				swort[j]=temp;
-			}
-		}
-	}
-    
-   for(i = 0;i<line;i++){
-     adder(swort[i]);
-   }
+   int top;
+   
+ for (i = 0; i < line; ++i) {
+        if (swort[0] < swort[i])
+            swort[0] = swort[i];
+    }
+    top  = swort[0];
+    adder(top);
 
 }
 
@@ -76,6 +70,7 @@ void arrange(){
       line++;
       int temp = atoi(input);
       insert(temp);
+      
    }
    fclose(ptr);
    display(line);
@@ -92,11 +87,6 @@ void record(int score){ //file handiling
     arrange();
     
 }
-
-//swort
-
-
-
 
 int main(void)
 {
